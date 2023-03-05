@@ -25,7 +25,7 @@ rev=$(echo gnippopk | rev)
 cd ~/k
 my_girls="Rose Winter Leeseo Gaeul5 IU Karina2 Hayoung2 Xiaoting Kazuha Danielle"
 for i in $my_girls; do
-	./getKpo*gByKoreanka "https://${rev}.com/goog/kpics/gender-all/category-any/idol-${i}/group-any/order-new"
+	./getKpo*gByKoreanka "https://${rev}.com/kpics/gender-all/category-any/idol-${i}/group-any/order-new"
 done
 ```
 
