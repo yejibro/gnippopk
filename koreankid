@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# getKr <uuid> <a> <dirname>
+getKr () {
+	afplay /System/Library/Sounds/Glass.aiff &
+	counter=0
+	for i in ${dirs[@]}; do
+		countr=$((counter+1))
+	done
+	localno=$((counter+1))
+	dir[$localno]="$3"
+	uuid[$localno]="$1"
+	mkdir $3
+	cd $3
+	
+	images=$(../getImages $2)
+	counter=0
+	for i in $images; do counter=$((counter+1)); done; imgs[$localno]=$counter
+	counter=0
+	for i in $images; do
+		counter=$((counter+1))
+		current[$localno]=$counter
+		curl -s -O "$i" &
+		sleep 0.2
+	done
+	cd ..
+}
+declare -a dir
+declare -a uuid
+declare -a imgs
+declare -a current
+while [ true ]; do
+	echo "Trying $(pbpaste)"
+	if [[ "$(pbpaste)" == *"kpopping"* ]]; then
+		a="$(pbpaste)"
+		dirname=$(echo "$a" | tr "/" "\n" | tail -n 1)
+		if [ ! -d "$dirname" ]; then
+			getKr $(uuid | cut -b 1-8) "$a" $dirname&
+		fi
+	fi
+	echo "Stats:"
+	localno=0
+	for i in ; do
+		localno=$((localno+1))
+		echo "[ ${uuid[$localno]} ]	${dir[$localno]}: ${current[$localno]}/${imgs[$localno]}"
+	done
+	sleep 1
+done

@@ -1,0 +1,5 @@
+data=$(curl -s "$1" | grep 'aria-label="picture"' | tr " " "\n" | grep href | sed 's/href="//g' | sed 's/"//g')
+
+for i in $data; do
+        echo "https://kpopping.com"$i
+done

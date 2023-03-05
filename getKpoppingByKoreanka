@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+a="$1"
+
+dirname=$(echo "$a" | tr "/" "\n" | grep --color=never 'idol-' | sed 's/idol-//g')
+if [ ! -f "$dirname" ]; then mkdir "$dirname"; fi
+cd $dirname
+for i in $(../getKoreanka $a); do
+	prettyName=$(basename $i | sed 's/-/ /g')
+	if [ -d "$prettyName" ]; then break; fi
+	printf "$prettyName "
+	mkdir "$prettyName"
+	cd "$prettyName"
+	for j in $(../../getImages $i); do
+		fname=$(basename "$j" | cut -f1 -d"?")
+		printf '.'
+		curl -s "$j" -o "$fname" &
+		sleep 0.2
+	done
+	echo ""
+	cd ..
+done

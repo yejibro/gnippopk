@@ -1,0 +1,14 @@
+i="$1"
+prettyName=$(basename $i | sed 's/-/ /g')
+	if [ -d "$prettyName" ]; then exit; fi
+	printf "$prettyName "
+	mkdir "$prettyName"
+	cd "$prettyName"
+	for j in $(../../getImages $i); do
+		fname=$(basename "$j" | cut -f1 -d"?")
+		printf '.'
+		curl -s "$j" -o "$fname" &
+		sleep 0.2
+	done
+	echo ""
+	cd ..
