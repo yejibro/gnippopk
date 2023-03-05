@@ -2,6 +2,9 @@
 
 Honestly I no longer remember what most of these were for
 
+Those scripts were made for macOS but should work with other systems with bash, curl, some
+uuid generating tool and basic coreutils
+
 `getKoreanka <url>` returns list of images of supplied celebrity or pages with higher
 resolution photos, I don't remember, `getImages` looks similar
 
